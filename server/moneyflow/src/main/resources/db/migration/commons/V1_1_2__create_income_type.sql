@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS tipo_rendimento (
+    id BIGSERIAL PRIMARY KEY NOT NULL,
+    descricao VARCHAR(50) NOT NULL
+);
