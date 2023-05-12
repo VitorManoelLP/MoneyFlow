@@ -1,0 +1,19 @@
+<div class="render" *ngIf="isOpen">
+  <div class="modal-exception">
+    <div class="card border-danger">
+      <div class="card-header bg-danger fw-bold text-white modal-header p-3">
+        Ocorreu um problema!
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="openModal()"></button>
+      </div>
+      <div class="card-body">
+        <p class="card-text" style="white-space: pre-line">{{ message }}</p>
+      </div>
+      <div class="card-footer bg-transparent">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-outline-secondary" type="button" (click)="openModal()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay"></div>
+</div>

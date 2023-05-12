@@ -1,0 +1,84 @@
+<div class="container mt-xxl-5">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped table-sm shadow-sm">
+        <thead class="table-secondary rounded">
+          <tr>
+            <th scope="col" class="p-2">Mês</th>
+            <th class="p-2">Descrição </th>
+            <th class="p-2">Tipo Rendimento</th>
+            <th class="p-2">Valor Total</th>
+            <th class="p-2">
+              <button type="button" class="btn btn-success btn-sm" aria-label="Adicionar" data-bs-toggle="modal"
+                data-bs-target="#adicionarRendimento" style="border-radius: 50%;"><i class="fa fa-plus"
+                  aria-hidden="true"></i></button>
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let userInfo of outlay">
+          <td scope="row" class="p-2">{{ getMesField(userInfo.mes) }}</td>
+          <td class="p-2">{{ userInfo.nome }}</td>
+          <td class="p-2">{{ getFieldTipoRendimento(userInfo.tipoRendimento) }}</td>
+          <td class="p-2">{{ userInfo.valorTotal | currency: 'R$'}}</td>
+          <td class="p-2">
+            <a type="button" data-bs-toggle="collapse" data-bs-target="#analitico" aria-expanded="false"
+              aria-controls="analitico" (click)="openDetail(userInfo)">
+              <i [class]="userInfo.expand ? 'fa fa-caret-up' : 'fa fa-caret-down'"></i>
+            </a>
+          </td>
+          <tr *ngIf="userInfo?.expand">
+            <td colspan="4">
+              <table class="table mb-0">
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>Descrição</th>
+                      <th>Data</th>
+                      <th>Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let detail of getSpecificOutlay(userInfo.idUsuarioRendimento)">
+                    <td style="max-width: 50px;">{{ detail.descricao.length > 50 ? detail.descricao.substring(0, 50) +
+                      '...' : detail.descricao }} </td>
+                    <td>{{ detail.data | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ detail.valor | currency: 'R$' }}</td>
+                  </tbody>
+                </table>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row"></th>
+            <td class="fw-bold">Total Receitas: {{ totalizadores.totalReceitas | currency: 'R$' }}</td>
+            <td class="fw-bold">Total Despesas: {{ totalizadores.totalDespesas | currency: 'R$' }}</td>
+            <td class="fw-bold">Total: {{ (totalizadores.totalReceitas - totalizadores.totalDespesas) | currency: 'R$'
+              }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modal-dialog-scrollable" id="adicionarRendimento" tabindex="-1" aria-labelledby="adicionarRendimentoLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adicionarRendimento"><i class="fa fa-plus-circle me-2" aria-hidden="true"></i>
+          Adicionar rendimento/despesa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <contas-form [fieldsWithHandler]="fieldsWithHandler" [searchFields]="searchFields" [outlay]="outlay"></contas-form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
