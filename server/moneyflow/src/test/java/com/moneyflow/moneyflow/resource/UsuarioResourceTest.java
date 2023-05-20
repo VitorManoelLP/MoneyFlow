@@ -1,5 +1,6 @@
 package com.moneyflow.moneyflow.resource;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.moneyflow.moneyflow.domain.Usuario;

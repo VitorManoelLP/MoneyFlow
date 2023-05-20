@@ -6,8 +6,7 @@ import { TipoRendimentoUtil } from 'src/app/base/tipo-rendimento';
 
 @Component({
   selector: 'contas-form',
-  templateUrl: './contas-form.component.html',
-  styleUrls: ['./contas-form.component.css']
+  templateUrl: './contas-form.component.html'
 })
 export class ContasFormComponent implements OnInit {
 
@@ -49,16 +48,17 @@ export class ContasFormComponent implements OnInit {
 
   public enableEditMode(item: any) {
     item.editMode = true;
+    item.backup = Object.assign({}, item);
   }
 
-  public cancelEdit(item: any) {
-    item.editMode = false;
+  public cancelEdit(item: any, index: number) {
+    this.disableEditMode(item);
+    this.changeItemValueByIndex(index, item?.backup);
   }
 
   public editItem(item: any, index: number) {
-    const rendimentos = this.form.get('rendimentos') as FormArray
-    rendimentos.at(index).patchValue(item);
-    this.cancelEdit(item);
+    this.changeItemValueByIndex(index, item);
+    this.disableEditMode(item);
   }
 
   public removeItem(index: number): void {
@@ -72,6 +72,10 @@ export class ContasFormComponent implements OnInit {
 
   public getMesField(): string {
     return MesUtil.getMesField(this.form.get('grupo.mes')?.value);
+  }
+
+  public salvar() {
+
   }
 
   private createFormRendimentos() {
@@ -90,5 +94,14 @@ export class ContasFormComponent implements OnInit {
       'idUsuarioRendimento': [''],
       'valorTotal': ['']
     });
+  }
+
+  private changeItemValueByIndex(index: number, item: any) {
+    const rendimentos = this.form.get('rendimentos') as FormArray;
+    rendimentos.at(index).patchValue(item);
+  }
+
+  private disableEditMode(item: any) {
+    item.editMode = false;
   }
 }

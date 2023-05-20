@@ -6,7 +6,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class GlobalExceptionHandler implements HttpInterceptor {
 
-  severityErrors = [
+  private severityErrors = [
     HttpStatusCode.InternalServerError,
     HttpStatusCode.NotImplemented,
     HttpStatusCode.BadGateway,

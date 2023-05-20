@@ -4,6 +4,7 @@ import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.dto.RendimentoTotalDTO;
 import com.moneyflow.moneyflow.enums.TipoRendimento;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class RendimentoService {
+
 
 	public List<RendimentoTotalDTO> processarRendimentoByUser(List<UsuarioRendimento> rendimentosByUser) {
 
