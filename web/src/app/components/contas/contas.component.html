@@ -65,5 +65,5 @@
 
 <div class="modal fade modal-dialog-scrollable" id="adicionarRendimento" tabindex="-1" aria-labelledby="adicionarRendimentoLabel"
   aria-hidden="true" data-bs-backdrop="static">
-  <contas-form [fieldsWithHandler]="fieldsWithHandler" [searchFields]="searchFields" [outlay]="outlay"></contas-form>
+  <contas-form [fieldsWithHandler]="fieldsWithHandler" [searchFields]="searchFields" [outlay]="outlay" (refresh)="receiveRefresh()"></contas-form>
 </div>

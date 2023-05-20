@@ -45,6 +45,10 @@ export class ContasComponent implements OnInit {
     return TipoRendimentoUtil.getFieldByTipoRendimento(tipoRendimento);
   }
 
+  public receiveRefresh(): void {
+    this.findUserOutlay();
+  }
+
   public getMesField(mes: number): string {
     return MesUtil.getMesField(mes);
   }

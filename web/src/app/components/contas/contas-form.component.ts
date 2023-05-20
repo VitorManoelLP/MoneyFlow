@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Outlay } from './models/outlay';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MesUtil } from 'src/app/core/util/mes';
@@ -15,6 +15,7 @@ export class ContasFormComponent implements OnInit {
   @Input() searchFields: string[];
   @Input() placeholder: string = '';
   @Input() fieldsWithHandler: Map<any, Function>;
+  @Output() refresh: EventEmitter<void> = new EventEmitter();
 
   formRendimentos: FormGroup;
   form: FormGroup;
@@ -59,7 +60,6 @@ export class ContasFormComponent implements OnInit {
   public enableEditMode(item: any) {
     item.editMode = true;
     item.backup = Object.assign({}, item);
-    console.log(item);
   }
 
   public cancelEdit(item: any, index: number) {
@@ -86,8 +86,9 @@ export class ContasFormComponent implements OnInit {
   }
 
   public salvar() {
-    this.usuarioRendimentoService.salvar(this.form.value).subscribe((res) => {
+    this.usuarioRendimentoService.salvar(this.form.value).subscribe(() => {
       document?.getElementById('closeModal')?.click();
+      this.refresh.emit();
     });
   }
 
