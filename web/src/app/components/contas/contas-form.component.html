@@ -9,7 +9,7 @@
       <div class="container">
 
         <form [formGroup]="form">
-          <div class="row" formGroupName="grupo">
+          <div class="row">
 
             <div class="col-md-6">
 
@@ -137,8 +137,8 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-      <button type="button" class="btn btn-success" [disabled]="formRendimentos.invalid" (click)="salvar()">Salvar</button>
+      <button id="closeModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      <button type="button" class="btn btn-success" [disabled]="form.invalid" (click)="salvar()">Salvar</button>
     </div>
   </div>
 </div>

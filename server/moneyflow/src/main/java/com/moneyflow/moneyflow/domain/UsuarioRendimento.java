@@ -39,10 +39,8 @@ public class UsuarioRendimento {
 
 	private Long competencia;
 
-	public static UsuarioRendimento ofUser(Usuario usuario) {
-		UsuarioRendimento usuarioRendimento = new UsuarioRendimento();
-		usuarioRendimento.setUsuario(usuario);
-		return usuarioRendimento;
+	public void assignUser(Usuario usuario) {
+		setUsuario(usuario);
 	}
 
 }

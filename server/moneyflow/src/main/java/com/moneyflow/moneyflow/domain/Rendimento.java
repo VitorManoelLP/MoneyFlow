@@ -1,10 +1,8 @@
 package com.moneyflow.moneyflow.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.moneyflow.moneyflow.dto.RendimentoDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -36,6 +34,8 @@ public class Rendimento {
 
 	@ManyToOne
 	@JoinColumn(name = "usuario_rendimento_id")
+	@JsonIgnore
+	@Setter(AccessLevel.PRIVATE)
 	private UsuarioRendimento usuarioRendimento;
 
 	public static RendimentoDTO convertToDTO(Rendimento rendimento) {
@@ -45,6 +45,10 @@ public class Rendimento {
 				.data(rendimento.getData())
 				.idUsuarioRendimento(rendimento.getUsuarioRendimento().getId())
 				.build();
+	}
+
+	public void assign(UsuarioRendimento usuarioRendimento) {
+		setUsuarioRendimento(usuarioRendimento);
 	}
 
 }

@@ -4,3 +4,17 @@ export interface DetailOutlay {
   data: Date;
   valor: number;
 }
+
+export interface DetailOutlayGroup {
+  mes: number,
+  nome: string,
+  tipoRendimento: string,
+  idUsuarioRendimento: number,
+  rendimentos: DetailOutlayToSave[]
+};
+
+export interface DetailOutlayToSave {
+  descricao: string;
+  data: Date;
+  valor: number;
+}

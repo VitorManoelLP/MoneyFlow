@@ -3,6 +3,7 @@ import { Outlay } from './models/outlay';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MesUtil } from 'src/app/core/util/mes';
 import { TipoRendimentoUtil } from 'src/app/base/tipo-rendimento';
+import { RendimentosService } from 'src/app/services/rendimentos.service';
 
 @Component({
   selector: 'contas-form',
@@ -18,7 +19,8 @@ export class ContasFormComponent implements OnInit {
   formRendimentos: FormGroup;
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,
+    private usuarioRendimentoService: RendimentosService) {}
 
   ngOnInit(): void {
     this.form = this.createForm();
@@ -28,8 +30,11 @@ export class ContasFormComponent implements OnInit {
   public createForm(): FormGroup {
 
     const form = this.formBuilder.group({
-      'grupo': this.createGrupoForm(),
-      'rendimentos': this.formBuilder.array([])
+      'competencia': ['', Validators.required],
+      'descricao': ['', Validators.required],
+      'tipoRendimento': ['', Validators.required],
+      'id': ['', Validators.required],
+      'rendimentos': this.formBuilder.array([], Validators.required)
     });
 
     return form;
@@ -43,12 +48,18 @@ export class ContasFormComponent implements OnInit {
   }
 
   public addGroup(grupo: any): void {
-    this.form.get('grupo')?.patchValue(grupo);
+    this.form.patchValue({
+      'competencia': grupo.mes,
+      'descricao': grupo.nome,
+      'tipoRendimento': grupo.tipoRendimento,
+      'id': grupo.idUsuarioRendimento
+    });
   }
 
   public enableEditMode(item: any) {
     item.editMode = true;
     item.backup = Object.assign({}, item);
+    console.log(item);
   }
 
   public cancelEdit(item: any, index: number) {
@@ -67,15 +78,17 @@ export class ContasFormComponent implements OnInit {
   }
 
   public getFieldTipoRendimento(): string {
-    return TipoRendimentoUtil.getFieldByTipoRendimento(this.form.get('grupo.tipoRendimento')?.value);
+    return TipoRendimentoUtil.getFieldByTipoRendimento(this.form.get('tipoRendimento')?.value);
   }
 
   public getMesField(): string {
-    return MesUtil.getMesField(this.form.get('grupo.mes')?.value);
+    return MesUtil.getMesField(this.form.get('competencia')?.value);
   }
 
   public salvar() {
-
+    this.usuarioRendimentoService.salvar(this.form.value).subscribe((res) => {
+      document?.getElementById('closeModal')?.click();
+    });
   }
 
   private createFormRendimentos() {
@@ -83,16 +96,6 @@ export class ContasFormComponent implements OnInit {
       'descricao': ['', Validators.required],
       'valor': ['', Validators.required],
       'data': ['', Validators.required]
-    });
-  }
-
-  private createGrupoForm() {
-    return this.formBuilder.group({
-      'mes': [''],
-      'nome': [''],
-      'tipoRendimento': [''],
-      'idUsuarioRendimento': [''],
-      'valorTotal': ['']
     });
   }
 
