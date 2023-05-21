@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import * as bootstrap from 'bootstrap';
 import { NotificationSevice } from './notification-service.service';
 import { Notification } from './model/notification';
 import { Subscription } from 'rxjs';
@@ -11,18 +10,20 @@ import { Subscription } from 'rxjs';
 export class NotificationComponent implements OnInit, OnDestroy {
 
   public notification: Notification;
+  public show: boolean = false;
+
   private subscription: Subscription;
 
   constructor(private notificationService: NotificationSevice) {}
-
-  ngOnInit(): void {
-    this.subscription = this.notificationService.lookUp().subscribe(notification => this.showNotification(notification));
-  }
 
   ngOnDestroy(): void {
     if(this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.notificationService.lookUp().subscribe(notification => this.showNotification(notification));
   }
 
   public translateType(type: string): string {
@@ -36,9 +37,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onHide() {
+    this.show = false
+  }
+
   private showNotification(notification: Notification) {
     this.notification = notification;
-    new bootstrap.Toast('.toast').show();
+    this.show = true;
   }
 
 }

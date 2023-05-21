@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,7 +36,8 @@ public class UsuarioRendimento {
 	private TipoRendimento tipoRendimento;
 
 	@OneToMany(mappedBy = "usuarioRendimento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Rendimento> rendimentos;
+	@Builder.Default
+	private List<Rendimento> rendimentos = new ArrayList<>();
 
 	private Long competencia;
 

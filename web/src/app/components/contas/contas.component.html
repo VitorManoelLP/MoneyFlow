@@ -42,6 +42,7 @@
                       '...' : detail.descricao }} </td>
                     <td>{{ detail.data | date: 'dd/MM/yyyy' }}</td>
                     <td>{{ detail.valor | currency: 'R$' }}</td>
+                    <td><button class="btn btn-light"><i class="fa fa-trash" aria-hidden="true" (click)="removeDetailOutlay(detail)"></i></button></td>
                   </tbody>
                 </table>
               </table>
@@ -53,8 +54,7 @@
             <th scope="row"></th>
             <td class="fw-bold">Total Receitas: {{ totalizadores.totalReceitas | currency: 'R$' }}</td>
             <td class="fw-bold">Total Despesas: {{ totalizadores.totalDespesas | currency: 'R$' }}</td>
-            <td class="fw-bold">Total: {{ (totalizadores.totalReceitas - totalizadores.totalDespesas) | currency: 'R$'
-              }}</td>
+            <td class="fw-bold">Total: {{ (totalizadores.totalReceitas - totalizadores.totalDespesas) | currency: 'R$'}}</td>
             <td></td>
           </tr>
         </tfoot>

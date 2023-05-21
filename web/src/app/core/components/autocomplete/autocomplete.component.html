@@ -1,3 +1,3 @@
 <label for="typeahead" *ngIf="title">{{ title }}</label>
 <input id="typeahead" type="text" class="form-control form-control-sm" [ngbTypeahead]="search"
-    [placeholder]="placeholder" (selectItem)="emitSelectedItem($event)"/>
+    [placeholder]="placeholder" (selectItem)="emitSelectedItem($event)" (focus)="onFocus.next($any($event).target.value)"/>

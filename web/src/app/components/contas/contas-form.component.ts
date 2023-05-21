@@ -5,6 +5,7 @@ import { MesUtil } from 'src/app/core/util/mes';
 import { TipoRendimentoUtil } from 'src/app/base/tipo-rendimento';
 import { RendimentosService } from 'src/app/services/rendimentos.service';
 import { NotificationSevice } from 'src/app/core/components/notification/notification-service.service';
+import { CurrentYearValidator } from 'src/app/core/validators/CurrentYearValidator';
 
 @Component({
   selector: 'contas-form',
@@ -99,7 +100,7 @@ export class ContasFormComponent implements OnInit {
     return this.formBuilder.group({
       'descricao': ['', Validators.required],
       'valor': ['', Validators.required],
-      'data': ['', Validators.required]
+      'data': ['', [Validators.required, CurrentYearValidator()]]
     });
   }
 

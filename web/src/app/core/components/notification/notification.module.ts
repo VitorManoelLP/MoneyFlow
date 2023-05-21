@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotificationComponent } from './notification.component';
+import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -8,7 +9,8 @@ import { NotificationComponent } from './notification.component';
   ],
   exports: [NotificationComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    NgbToastModule
   ]
 })
 export class NotificationModule { }

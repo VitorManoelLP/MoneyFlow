@@ -20,7 +20,8 @@ export class ContasComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private rendimentosService: RendimentosService) { }
+    private rendimentosService: RendimentosService,
+    private notificationService: NotificationSevice) { }
 
   outlay: Outlay[];
   detailOutlay: DetailOutlay[] = [];
@@ -40,6 +41,13 @@ export class ContasComponent implements OnInit {
     this.fieldsWithHandler.set('mes', (obj: number) => MesUtil.getMesField(obj));
 
     this.findUserOutlay();
+  }
+
+  public removeDetailOutlay(detail: DetailOutlay) {
+    this.rendimentosService.delete(detail.id).subscribe(() => {
+      this.detailOutlay = this.detailOutlay.filter((detailOutlay: DetailOutlay) => detailOutlay.id !== detail.id);
+      this.notificationService.success('Rendimento removido com sucesso!');
+    });
   }
 
   public getFieldTipoRendimento(tipoRendimento: string): string {

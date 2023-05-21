@@ -3,6 +3,7 @@ export interface DetailOutlay {
   descricao: string;
   data: Date;
   valor: number;
+  id: number;
 }
 
 export interface DetailOutlayGroup {

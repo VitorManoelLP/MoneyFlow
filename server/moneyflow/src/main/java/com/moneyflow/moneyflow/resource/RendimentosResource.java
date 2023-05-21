@@ -42,5 +42,11 @@ public class RendimentosResource {
 				.body(usuarioRendimentoService.salvar(usuarioRendimento));
 	}
 
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteById (@PathVariable Long id) {
+		rendimentoRepository.deleteById(id);
+		return ResponseEntity.accepted().build();
+	}
+
 
 }

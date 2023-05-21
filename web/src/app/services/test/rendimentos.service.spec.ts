@@ -33,4 +33,26 @@ describe('RendimentosService', () => {
     expect(spy).toHaveBeenCalledWith('/api/usuarios/1');
   });
 
+  it('should call salvar', () => {
+
+    const obj = { mes: 10, nome: 'Teste', tipoRendimento: 'Despesa', idUsuarioRendimento: 1, rendimentos: []};
+
+    const spy = spyOn(httpClientSpy, 'post').and.returnValue(of({ id: 1 }));
+
+    service.salvar(obj).subscribe();
+
+    expect(spy).toHaveBeenCalledWith('/api/usuarios', obj);
+
+  });
+
+  it('should call delete', () => {
+
+    const spy = spyOn(httpClientSpy, 'delete').and.returnValue(of({}));
+
+    service.delete(1).subscribe();
+
+    expect(spy).toHaveBeenCalledWith('/api/usuarios/1');
+
+  });
+
 });

@@ -16,4 +16,8 @@ export class RendimentosService {
     return this.httpClient.post<DetailOutlayGroup>('/api/rendimentos', outlay);
   }
 
+  public delete(id: number): Observable<any> {
+    return this.httpClient.delete(`/api/rendimentos/${id}`);
+  }
+
 }

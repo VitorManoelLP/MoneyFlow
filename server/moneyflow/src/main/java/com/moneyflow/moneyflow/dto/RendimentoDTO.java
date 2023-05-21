@@ -25,4 +25,7 @@ public class RendimentoDTO {
 	@NonNull
 	private Long idUsuarioRendimento;
 
+	@NonNull
+	private Long id;
+
 }

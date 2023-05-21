@@ -20,11 +20,11 @@ export class NotificationSevice {
   }
 
   public success(message: string) {
-    this.notify({ message: message, title: 'Sucesso', type: 'success' });
+    this.notify({ message: message, title: 'Sucesso', type: 'bg-success text-white' });
   }
 
   public error(message: string) {
-    this.notify({ message: message, title: 'Erro', type: 'danger' });
+    this.notify({ message: message, title: 'Erro', type: 'bg-danger text-white' });
   }
 
 }

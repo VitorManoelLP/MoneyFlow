@@ -1,9 +1,12 @@
 package com.moneyflow.moneyflow.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.Usuario;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.enums.TipoRendimento;
+import lombok.SneakyThrows;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -39,6 +42,12 @@ public final class Fixtures {
 				.password("123456")
 				.email("test@gmail.com")
 				.create();
+	}
+
+	@SneakyThrows
+	public static String createMockJson(Object obj) {
+		ObjectWriter writer = new ObjectMapper().writer();
+		return writer.writeValueAsString(obj);
 	}
 
 }

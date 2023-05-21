@@ -43,6 +43,7 @@ public class Rendimento {
 				.descricao(rendimento.getDescricao())
 				.valor(rendimento.getValor())
 				.data(rendimento.getData())
+				.id(rendimento.getId())
 				.idUsuarioRendimento(rendimento.getUsuarioRendimento().getId())
 				.build();
 	}

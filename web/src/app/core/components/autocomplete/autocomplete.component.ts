@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable, debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, Subject, debounceTime, distinctUntilChanged, filter, map, merge } from 'rxjs';
 
 @Component({
   selector: 'autocomplete',
@@ -15,14 +16,14 @@ export class AutocompleteComponent {
   @Input() title: string = '';
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();
 
-  objByField = new Map<string, any>();
+  public onFocus: Subject<string> = new Subject<string>();
 
-  search = (text: Observable<string>) =>
-    text.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => this.values.filter(v => this.buildSearch(v, term)).map(obj => this.showOptions(obj)))
-    );
+  private objByField = new Map<string, any>();
+
+  search = (text: Observable<string>) => {
+    let debounceText = text.pipe(debounceTime(200), distinctUntilChanged());
+    return merge(debounceText, this.onFocus).pipe(map(term => this.values.filter(v => this.buildSearch(v, term)).map(obj => this.showOptions(obj))));
+  };
 
   emitSelectedItem(event: any) {
     this.selected.emit(this.objByField.get(event.item));
