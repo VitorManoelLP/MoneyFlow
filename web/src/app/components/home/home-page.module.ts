@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomePageComponent } from './home-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GraficoModule } from "../grafico/grafico.module";
+import { NotificationModule } from 'src/app/core/components/notification/notification.module';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent }

@@ -9,6 +9,7 @@ import { ModalModule } from './core/handler/modal/modal.module';
 import { GlobalExceptionHandler } from './core/handler/global-handler';
 import { LoadingModule } from './core/handler/loading/loading.module';
 import { AngularExceptionHandler } from './core/handler/angular-exception-handler';
+import { NotificationModule } from './core/components/notification/notification.module';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { AngularExceptionHandler } from './core/handler/angular-exception-handle
         AppRoutingModule,
         HttpClientModule,
         ModalModule,
-        LoadingModule
+        LoadingModule,
+        NotificationModule
     ]
 })
 export class AppModule {

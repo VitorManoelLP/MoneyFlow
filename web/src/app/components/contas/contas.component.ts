@@ -10,6 +10,7 @@ import { Outlay } from './models/outlay';
 import { DetailOutlay } from './models/detail-outlay';
 import { Totalizadores } from './models/totalizadores';
 import { UserInfo } from './models/user-info';
+import { NotificationSevice } from 'src/app/core/components/notification/notification-service.service';
 
 @Component({
   selector: 'app-contas',

@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MesUtil } from 'src/app/core/util/mes';
 import { TipoRendimentoUtil } from 'src/app/base/tipo-rendimento';
 import { RendimentosService } from 'src/app/services/rendimentos.service';
+import { NotificationSevice } from 'src/app/core/components/notification/notification-service.service';
 
 @Component({
   selector: 'contas-form',
@@ -21,7 +22,8 @@ export class ContasFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private usuarioRendimentoService: RendimentosService) {}
+    private usuarioRendimentoService: RendimentosService,
+    private notificationService: NotificationSevice) {}
 
   ngOnInit(): void {
     this.form = this.createForm();
@@ -88,6 +90,7 @@ export class ContasFormComponent implements OnInit {
   public salvar() {
     this.usuarioRendimentoService.salvar(this.form.value).subscribe(() => {
       document?.getElementById('closeModal')?.click();
+      this.notificationService.success('Rendimento salvo com sucesso!');
       this.refresh.emit();
     });
   }
