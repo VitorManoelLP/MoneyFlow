@@ -28,7 +28,6 @@ public class RendimentosResource {
 
 	@GetMapping("/usuario-rendimento/{id}")
 	public ResponseEntity<List<RendimentoDTO>> getRendimentosByUsuarioRendimento (@PathVariable Long id) {
-		ofxParseFeignClient.parseOfx(null);
 		return ResponseEntity.ok(rendimentoRepository.findAllByUsuarioRendimentoId(id)
 				.stream()
 				.map(Rendimento::convertToDTO)
