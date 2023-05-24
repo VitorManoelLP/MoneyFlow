@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class OfxParseResource {
@@ -17,7 +19,7 @@ public class OfxParseResource {
 	public final OfxParseTransactionService ofxParseTransaction;
 
 	@RequestMapping(value = "/parse-ofx", method = RequestMethod.POST)
-	public ResponseEntity<TransactionDTO> parseOfx (@RequestBody MultipartFile file) {
+	public ResponseEntity<List<TransactionDTO>> parseOfx (@RequestBody MultipartFile file) {
 		return ResponseEntity.ok(ofxParseTransaction.parseOfx(file));
 	}
 

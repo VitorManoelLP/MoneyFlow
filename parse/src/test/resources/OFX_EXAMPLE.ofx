@@ -1,0 +1,38 @@
+OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:USASCII
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+<OFX>
+    <BANKMSGSRSV1>
+        <STMTTRNRS>
+            <STMTRS>
+                <CURDEF>BRL</CURDEF>
+                <BANKACCTFROM>
+                    <BANKID>Nubank</BANKID>
+                    <ACCTID>123456789</ACCTID>
+                    <ACCTTYPE>CHECKING</ACCTTYPE>
+                </BANKACCTFROM>
+                <BANKTRANLIST>
+                    <DTSTART>20230501120000</DTSTART>
+                    <DTEND>20230531120000</DTEND>
+                    <STMTTRN>
+                        <TRNTYPE>DEBIT</TRNTYPE>
+                        <DTPOSTED>20230501120000</DTPOSTED>
+                        <TRNAMT>-50.00</TRNAMT>
+                        <FITID>1</FITID>
+                        <MEMO>Pagamento 1</MEMO>
+                    </STMTTRN>
+                </BANKTRANLIST>
+                <LEDGERBAL>
+                    <BALAMT>2000.00</BALAMT>
+                    <DTASOF>20230531120000</DTASOF>
+                </LEDGERBAL>
+            </STMTRS>
+        </STMTTRNRS>
+    </BANKMSGSRSV1>
+</OFX>

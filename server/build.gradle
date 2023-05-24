@@ -36,7 +36,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'redis.clients:jedis:3.7.0'
     testImplementation 'org.projectlombok:lombok:1.18.22'
-	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.2'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 
 
 	compileOnly 'org.projectlombok:lombok'
@@ -59,4 +60,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.6"
+	}
 }
