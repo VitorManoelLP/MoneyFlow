@@ -51,4 +51,8 @@ public class TransactionDTO {
 		this.details = details;
 	}
 
+	public static TransactionDTO of(String descricao, Long competencia, TipoRendimento tipoRendimento, List<TransactionDetailDTO> details) {
+		return new TransactionDTO(descricao, competencia, tipoRendimento, details);
+	}
+
 }

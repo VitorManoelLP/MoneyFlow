@@ -1,7 +1,10 @@
 package com.client.common.dto;
 
+import com.client.common.enums.TipoRendimento;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class TransactionDetailDTO {
 
@@ -38,6 +41,11 @@ public class TransactionDetailDTO {
 	public void setData (LocalDate data) {
 		this.data = data;
 	}
+
+	public static TransactionDetailDTO of(String descricao, BigDecimal valor, LocalDate data) {
+		return new TransactionDetailDTO(descricao, valor, data);
+	}
+
 
 
 }

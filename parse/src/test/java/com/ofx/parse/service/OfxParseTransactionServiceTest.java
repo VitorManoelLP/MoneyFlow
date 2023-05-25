@@ -48,11 +48,11 @@ public class OfxParseTransactionServiceTest {
 				.hasSize(1)
 				.isNotEmpty()
 				.extracting(TransactionDTO::getCompetencia)
-				.allSatisfy(competencia -> Assertions.assertThat(competencia).isEqualTo(2L));
+				.allSatisfy(competencia -> Assertions.assertThat(competencia).isEqualTo(5L));
 
 		Assertions.assertThat(transactions)
 				.extracting(TransactionDTO::getDescricao)
-				.containsOnly("DESPESAS NUBANK 31/05/2021");
+				.containsOnly("DESPESA NUBANK 31/05/2023");
 
 		Assertions.assertThat(transactions).extracting(TransactionDTO::getTipoRendimento)
 				.containsOnly(TipoRendimento.DESPESA);
