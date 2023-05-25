@@ -1,6 +1,6 @@
 package com.moneyflow.moneyflow.domain;
 
-import com.moneyflow.moneyflow.enums.TipoRendimento;
+import com.client.common.enums.TipoRendimento;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -43,6 +43,10 @@ public class UsuarioRendimento {
 
 	public void assignUser(Usuario usuario) {
 		setUsuario(usuario);
+	}
+
+	public static UsuarioRendimento of(Long id, Usuario usuario, String descricao, TipoRendimento tipoRendimento, List<Rendimento> rendimentos, Long competencia) {
+		return new UsuarioRendimento(id, usuario, descricao, tipoRendimento, rendimentos, competencia);
 	}
 
 }

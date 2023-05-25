@@ -20,4 +20,8 @@ export class RendimentosService {
     return this.httpClient.delete(`/api/rendimentos/${id}`);
   }
 
+  public salvarOfx(FormData: FormData): Observable<any> {
+    return this.httpClient.post<any>('/api/rendimentos/ofx', FormData);
+  }
+
 }

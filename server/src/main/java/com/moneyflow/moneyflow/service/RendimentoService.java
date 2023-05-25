@@ -1,9 +1,9 @@
 package com.moneyflow.moneyflow.service;
 
+import com.client.common.enums.TipoRendimento;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.dto.RendimentoTotalDTO;
-import com.moneyflow.moneyflow.enums.TipoRendimento;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

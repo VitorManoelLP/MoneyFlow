@@ -23,6 +23,8 @@ export class ContasComponent implements OnInit {
     private rendimentosService: RendimentosService,
     private notificationService: NotificationSevice) { }
 
+  private formData = new FormData();
+
   outlay: Outlay[];
   detailOutlay: DetailOutlay[] = [];
 
@@ -41,6 +43,18 @@ export class ContasComponent implements OnInit {
     this.fieldsWithHandler.set('mes', (obj: number) => MesUtil.getMesField(obj));
 
     this.findUserOutlay();
+  }
+
+  public salvarOfx(event: any): void {
+    this.formData.append('file', <File>event.target.files[0]);
+  }
+
+  public importarOfx(): void {
+    this.rendimentosService.salvarOfx(this.formData).subscribe(() => {
+      this.notificationService.success('Rendimentos importados com sucesso!');
+      document?.getElementById('closeImportacao')?.click();
+      this.findUserOutlay();
+    });
   }
 
   public removeDetailOutlay(detail: DetailOutlay) {

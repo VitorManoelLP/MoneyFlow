@@ -11,57 +11,69 @@ import com.webcohesion.ofx4j.domain.data.ResponseMessageSet;
 import com.webcohesion.ofx4j.domain.data.banking.BankStatementResponse;
 import com.webcohesion.ofx4j.domain.data.common.Transaction;
 import com.webcohesion.ofx4j.domain.data.common.TransactionList;
+import com.webcohesion.ofx4j.domain.data.signon.SignonResponseMessageSet;
 import com.webcohesion.ofx4j.io.AggregateUnmarshaller;
 import com.webcohesion.ofx4j.io.OFXParseException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
 
 @Service
 public class OfxParseTransactionService {
 
-	public List<TransactionDTO> parseOfx (MultipartFile file) {
+	public List<TransactionDTO> parseOfx (byte[] file) throws IOException {
 
-		AggregateUnmarshaller<ResponseEnvelope> unmarshaller = new AggregateUnmarshaller<>(ResponseEnvelope.class);
+		try (InputStream inputStream = new ByteArrayInputStream(file)) {
 
-		try {
+			AggregateUnmarshaller<ResponseEnvelope> unmarshaller = new AggregateUnmarshaller<>(ResponseEnvelope.class);
 
-			ResponseEnvelope unmarshal = unmarshaller.unmarshal(file.getInputStream());
+			try {
 
-			Iterator<ResponseMessageSet> messageSetIterator = unmarshal.getMessageSets().iterator();
+				ResponseEnvelope unmarshal = unmarshaller.unmarshal(inputStream);
 
-			List<TransactionDTO> transactions = new ArrayList<>();
+				Iterator<ResponseMessageSet> messageSetIterator = unmarshal.getMessageSets().iterator();
 
-			while(messageSetIterator.hasNext()) {
+				List<TransactionDTO> transactions = new ArrayList<>();
 
-				List<ResponseMessage> responseMessages = messageSetIterator.next().getResponseMessages();
+				while(messageSetIterator.hasNext()) {
 
-				responseMessages.forEach(message -> {
+					ResponseMessageSet next = messageSetIterator.next();
 
-					BankStatementResponse bankStatement = ParseUtils.getBankTransaction(message).getMessage();
+					if(next instanceof SignonResponseMessageSet) {
+						continue;
+					}
 
-					TransactionList transactionList = bankStatement.getTransactionList();
+					List<ResponseMessage> responseMessages = next.getResponseMessages();
 
-					Map<TipoRendimento, List<TransactionDetailDTO>> detailByTipoRendimento = new HashMap<>();
+					responseMessages.forEach(message -> {
 
-					transactionList.getTransactions().forEach(transaction -> addTransactionDetail(detailByTipoRendimento, transaction));
+						BankStatementResponse bankStatement = ParseUtils.getBankTransaction(message).getMessage();
 
-					extractByTipoRendimento(bankStatement, transactionList, detailByTipoRendimento, TipoRendimento.RECEITA, transactions);
-					extractByTipoRendimento(bankStatement, transactionList, detailByTipoRendimento, TipoRendimento.DESPESA, transactions);
+						TransactionList transactionList = bankStatement.getTransactionList();
 
-				});
+						Map<TipoRendimento, List<TransactionDetailDTO>> detailByTipoRendimento = new HashMap<>();
 
+						transactionList.getTransactions().forEach(transaction -> addTransactionDetail(detailByTipoRendimento, transaction));
+
+						extractByTipoRendimento(bankStatement, transactionList, detailByTipoRendimento, TipoRendimento.RECEITA, transactions);
+						extractByTipoRendimento(bankStatement, transactionList, detailByTipoRendimento, TipoRendimento.DESPESA, transactions);
+
+					});
+
+				}
+
+				return transactions;
+
+			} catch (IOException | OFXParseException ex) {
+				throw new OfxParseException("Erro ao processar arquivo OFX", ex);
 			}
 
-			return transactions;
-
-		} catch (IOException | OFXParseException ex) {
-			throw new OfxParseException("Erro ao processar arquivo OFX", ex);
 		}
-
 	}
 
 	private void extractByTipoRendimento (BankStatementResponse bankStatement,

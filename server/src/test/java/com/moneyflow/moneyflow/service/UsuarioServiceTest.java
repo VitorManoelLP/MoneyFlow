@@ -1,14 +1,11 @@
 package com.moneyflow.moneyflow.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.client.common.enums.TipoRendimento;
 import com.moneyflow.moneyflow.dto.InitialInformationsDTO;
 import com.moneyflow.moneyflow.dto.RendimentoTotalDTO;
-import com.moneyflow.moneyflow.enums.TipoRendimento;
 import com.moneyflow.moneyflow.repository.UsuarioRendimentoRepository;
 import com.moneyflow.moneyflow.repository.UsuarioRepository;
 import com.moneyflow.moneyflow.util.IntegrationTesting;
-import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,8 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RunWith(SpringRunner.class)

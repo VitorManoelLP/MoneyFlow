@@ -1,23 +1,17 @@
 package com.moneyflow.moneyflow.service;
 
-import com.moneyflow.moneyflow.domain.Rendimento;
+import com.client.common.enums.TipoRendimento;
 import com.moneyflow.moneyflow.domain.Usuario;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.dto.InitialInformationsDTO;
 import com.moneyflow.moneyflow.dto.RendimentoTotalDTO;
-import com.moneyflow.moneyflow.enums.TipoRendimento;
 import com.moneyflow.moneyflow.repository.UsuarioRendimentoRepository;
 import com.moneyflow.moneyflow.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

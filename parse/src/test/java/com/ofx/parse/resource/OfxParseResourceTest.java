@@ -42,7 +42,7 @@ public class OfxParseResourceTest {
 						.contentType(MediaType.MULTIPART_FORM_DATA))
 				.andExpect(status().isOk());
 
-		verify(ofxParseTransactionService).parseOfx(file);
+		verify(ofxParseTransactionService).parseOfx(file.getBytes());
 	}
 
 }

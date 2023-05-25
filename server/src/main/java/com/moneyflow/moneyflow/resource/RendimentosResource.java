@@ -1,5 +1,6 @@
 package com.moneyflow.moneyflow.resource;
 
+import com.client.common.dto.TransactionDTO;
 import com.moneyflow.moneyflow.client.OfxParseFeignClient;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
@@ -7,11 +8,14 @@ import com.moneyflow.moneyflow.dto.RendimentoDTO;
 import com.moneyflow.moneyflow.repository.RendimentoRepository;
 import com.moneyflow.moneyflow.repository.UsuarioRendimentoRepository;
 import com.moneyflow.moneyflow.service.UsuarioRendimentoService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +27,6 @@ public class RendimentosResource {
 	private final RendimentoRepository rendimentoRepository;
 
 	private final UsuarioRendimentoService usuarioRendimentoService;
-
-	private final OfxParseFeignClient ofxParseFeignClient;
 
 	@GetMapping("/usuario-rendimento/{id}")
 	public ResponseEntity<List<RendimentoDTO>> getRendimentosByUsuarioRendimento (@PathVariable Long id) {
@@ -50,5 +52,13 @@ public class RendimentosResource {
 		return ResponseEntity.accepted().build();
 	}
 
+	@PostMapping("/ofx")
+	public ResponseEntity<Void> salvarRendimentosOfx(@RequestParam("file") @NonNull MultipartFile multipartFile) throws IOException {
+		usuarioRendimentoService.salvarOfx(multipartFile);
+		return ResponseEntity.created(ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.build()
+				.toUri()).build();
+	}
 
 }

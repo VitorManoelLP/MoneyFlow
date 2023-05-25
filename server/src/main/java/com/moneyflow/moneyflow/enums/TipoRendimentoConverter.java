@@ -1,5 +1,7 @@
 package com.moneyflow.moneyflow.enums;
 
+import com.client.common.enums.TipoRendimento;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

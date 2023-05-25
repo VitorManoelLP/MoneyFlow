@@ -2,7 +2,7 @@ CREATE SEQUENCE IF NOT EXISTS rendimento_id_seq;
 
 CREATE TABLE IF NOT EXISTS rendimento (
     id BIGSERIAL PRIMARY KEY NOT NULL,
-    descricao VARCHAR(50) NOT NULL,
+    descricao VARCHAR(4000) NOT NULL,
     valor NUMERIC(10,2) NOT NULL,
     data DATE NOT NULL,
     usuario_rendimento_id BIGSERIAL NOT NULL,

@@ -53,4 +53,8 @@ public class Rendimento {
 		setUsuarioRendimento(usuarioRendimento);
 	}
 
+	public static Rendimento of(Long id, String descricao, BigDecimal valor, LocalDate data, UsuarioRendimento usuarioRendimento) {
+		return new Rendimento(id, descricao, valor, data, usuarioRendimento);
+	}
+
 }

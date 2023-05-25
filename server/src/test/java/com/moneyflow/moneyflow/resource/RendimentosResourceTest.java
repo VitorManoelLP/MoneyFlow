@@ -28,8 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -91,6 +90,17 @@ public class RendimentosResourceTest {
 				.andExpect(status().isAccepted());
 
 		verify(rendimentoRepository).deleteById(1L);
+	}
+
+	@Test
+	public void salvarOfx() throws Exception {
+
+		mockMvc.perform(multipart("/api/rendimentos/ofx")
+				.file("file", "teste".getBytes())
+				.param("usuarioRendimentoId", "1"))
+				.andExpect(status().isCreated());
+
+		verify(usuarioRendimentoService).salvarOfx(any());
 	}
 
 }

@@ -1,13 +1,12 @@
 package com.moneyflow.moneyflow.dto;
 
-import com.moneyflow.moneyflow.enums.TipoRendimento;
+import com.client.common.enums.TipoRendimento;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Builder
 @Getter

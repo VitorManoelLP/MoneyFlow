@@ -55,4 +55,15 @@ describe('RendimentosService', () => {
 
   });
 
+  it('should call salvarOfx', () => {
+
+      const spy = spyOn(httpClientSpy, 'post').and.returnValue(of({}));
+
+      service.salvarOfx(new FormData()).subscribe();
+
+      expect(spy).toHaveBeenCalledWith('/api/usuarios/ofx', new FormData());
+
+    }
+  );
+
 });
