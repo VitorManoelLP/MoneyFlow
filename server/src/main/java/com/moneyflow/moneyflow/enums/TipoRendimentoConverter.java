@@ -7,6 +7,7 @@ import javax.persistence.Converter;
 
 @Converter(autoApply = true)
 public class TipoRendimentoConverter implements AttributeConverter<TipoRendimento, Long> {
+
 	@Override
 	public Long convertToDatabaseColumn (TipoRendimento attribute) {
 		return attribute.getCodigo();
@@ -16,4 +17,5 @@ public class TipoRendimentoConverter implements AttributeConverter<TipoRendiment
 	public TipoRendimento convertToEntityAttribute (Long dbData) {
 		return TipoRendimento.getByValue(dbData);
 	}
+
 }

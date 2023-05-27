@@ -2,8 +2,10 @@ package com.ofx.parse.service;
 
 import com.client.common.dto.TransactionDTO;
 import com.client.common.dto.TransactionDetailDTO;
+import com.client.common.enums.TipoArquivo;
 import com.client.common.enums.TipoRendimento;
 import com.ofx.parse.exception.OfxParseException;
+import com.ofx.parse.imp.ParseTransactionHandler;
 import com.ofx.parse.utils.ParseUtils;
 import com.webcohesion.ofx4j.domain.data.ResponseEnvelope;
 import com.webcohesion.ofx4j.domain.data.ResponseMessage;
@@ -14,8 +16,8 @@ import com.webcohesion.ofx4j.domain.data.common.TransactionList;
 import com.webcohesion.ofx4j.domain.data.signon.SignonResponseMessageSet;
 import com.webcohesion.ofx4j.io.AggregateUnmarshaller;
 import com.webcohesion.ofx4j.io.OFXParseException;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -24,9 +26,15 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Service
-public class OfxParseTransactionService {
+public class OfxParseTransactionService implements ParseTransactionHandler {
 
-	public List<TransactionDTO> parseOfx (byte[] file) throws IOException {
+	@Override
+	public boolean isSupported (TipoArquivo tipoArquivo) {
+		return TipoArquivo.OFX.equals(tipoArquivo);
+	}
+
+	@SneakyThrows
+	public List<TransactionDTO> parse (byte[] file) {
 
 		try (InputStream inputStream = new ByteArrayInputStream(file)) {
 

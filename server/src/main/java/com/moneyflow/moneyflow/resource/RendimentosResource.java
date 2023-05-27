@@ -1,12 +1,9 @@
 package com.moneyflow.moneyflow.resource;
 
-import com.client.common.dto.TransactionDTO;
-import com.moneyflow.moneyflow.client.OfxParseFeignClient;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.dto.RendimentoDTO;
 import com.moneyflow.moneyflow.repository.RendimentoRepository;
-import com.moneyflow.moneyflow.repository.UsuarioRendimentoRepository;
 import com.moneyflow.moneyflow.service.UsuarioRendimentoService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +51,7 @@ public class RendimentosResource {
 
 	@PostMapping("/ofx")
 	public ResponseEntity<Void> salvarRendimentosOfx(@RequestParam("file") @NonNull MultipartFile multipartFile) throws IOException {
-		usuarioRendimentoService.salvarOfx(multipartFile);
+		usuarioRendimentoService.salvarExtrato(multipartFile);
 		return ResponseEntity.created(ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.build()

@@ -42,7 +42,7 @@ public class OfxParseTransactionServiceTest {
 
 		MockMultipartFile mockMultipartFile = new MockMultipartFile("nu.ofx", "NU23131.ofx", "multipart/form-data", fileInputStream.readAllBytes());
 
-		List<TransactionDTO> transactions = ofxParseTransactionService.parseOfx(mockMultipartFile.getInputStream().readAllBytes());
+		List<TransactionDTO> transactions = ofxParseTransactionService.parse(mockMultipartFile.getInputStream().readAllBytes());
 
 		Assertions.assertThat(transactions)
 				.hasSize(1)

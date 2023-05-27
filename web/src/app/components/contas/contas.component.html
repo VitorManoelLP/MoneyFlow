@@ -74,7 +74,7 @@
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <button class="btn btn-outline-dark float" data-bs-toggle="modal" data-bs-target="#importarOfx">
     <i class="fa fa-file" aria-hidden="true"></i>
-    Importar OFX
+    Importar Extrato
   </button>
 </div>
 
@@ -84,13 +84,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="adicionarRendimento"> <i class="fa fa-file" aria-hidden="true"></i>
-          Importar OFX</h5>
+          Importar de extrato</h5>
         <button type="button" class="btn-close" id="closeImportacao" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container">
-          <label for="ofx" class="form-label">Selecione o arquivo OFX</label>
-          <input type="file" name="ofx" id="ofx" accept=".ofx" class="form-control" (change)="salvarOfx($event)">
+          <label for="ofx" class="form-label">Selecione o arquivo extrato</label>
+          <input type="file" name="ofx" id="ofx" accept=".ofx,.csv" class="form-control" (change)="salvarOfx($event)">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-outline-dark mt-3" (click)="importarOfx()">Importar</button>
           </div>

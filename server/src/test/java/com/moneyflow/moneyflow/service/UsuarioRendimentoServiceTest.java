@@ -3,7 +3,7 @@ package com.moneyflow.moneyflow.service;
 import com.client.common.dto.TransactionDTO;
 import com.client.common.dto.TransactionDetailDTO;
 import com.client.common.enums.TipoRendimento;
-import com.moneyflow.moneyflow.client.OfxParseFeignClient;
+import com.moneyflow.moneyflow.client.ParseFeignClient;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.Usuario;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
@@ -35,7 +35,7 @@ public class UsuarioRendimentoServiceTest {
 
 	private final UsuarioRendimentoRepository usuarioRendimentoRepository = mock(UsuarioRendimentoRepository.class);
 
-	private final OfxParseFeignClient ofxParseFeignClient = mock(OfxParseFeignClient.class);
+	private final ParseFeignClient ofxParseFeignClient = mock(ParseFeignClient.class);
 
 	@Before
 	public void setup() {
@@ -89,11 +89,11 @@ public class UsuarioRendimentoServiceTest {
 		TransactionDTO transaction = TransactionDTO.of("Teste", 1L, TipoRendimento.RECEITA, new ArrayList<>(List.of(detail)));
 
 		when(usuarioRepository.findById(1L)).thenReturn(Optional.of(Fixtures.createMockUser(1L)));
-		when(ofxParseFeignClient.parseOfx(any())).thenReturn(List.of(transaction));
+		when(ofxParseFeignClient.parse(any())).thenReturn(List.of(transaction));
 
-		usuarioRendimentoService.salvarOfx(null);
+		usuarioRendimentoService.salvarExtrato(null);
 
-		verify(ofxParseFeignClient, atLeastOnce()).parseOfx(any());
+		verify(ofxParseFeignClient, atLeastOnce()).parse(any());
 		verify(usuarioRendimentoRepository, atLeastOnce()).saveAll(usuarioRendimento.capture());
 
 		List<UsuarioRendimento> rendimentos = usuarioRendimento.getValue();
