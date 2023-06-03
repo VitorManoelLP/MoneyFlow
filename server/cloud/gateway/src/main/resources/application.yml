@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: parse-api
+          uri: lb://parse-api
+          predicates:
+            - Path=/parse-api/**
+        - id: money-flow-api
+          uri: lb://money-flow-api
+          predicates:
+            - Path=/money-flow-api/**
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: "true"
+    fetchRegistry: "true"
+  instance:
+    preferIpAddress: true
