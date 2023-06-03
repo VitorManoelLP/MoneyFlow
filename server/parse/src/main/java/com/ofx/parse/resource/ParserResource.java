@@ -2,13 +2,19 @@ package com.ofx.parse.resource;
 
 import com.client.common.dto.RequestParseDTO;
 import com.client.common.dto.TransactionDTO;
+import com.client.common.enums.TipoArquivo;
 import com.ofx.parse.imp.ParseTransactionHandler;
+import com.ofx.parse.service.ParserService;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
@@ -16,19 +22,12 @@ import java.util.List;
 @AllArgsConstructor
 public class ParserResource {
 
-	private final List<ParseTransactionHandler> parseTransactionHandlers;
+	private final ParserService parserService;
 
-	@RequestMapping(value = "/parse", method = RequestMethod.POST)
-	public ResponseEntity<List<TransactionDTO>> parse (@RequestBody @NonNull RequestParseDTO requestParseDTO) throws ExecutionControl.NotImplementedException {
-
-		byte[] fileBytes = Base64.getDecoder().decode(requestParseDTO.getBase64());
-
-		ParseTransactionHandler parserResolved = parseTransactionHandlers.stream()
-				.filter(handler -> handler.isSupported(requestParseDTO.getTipoArquivo()))
-				.findFirst()
-				.orElseThrow(() -> new ExecutionControl.NotImplementedException("Formato não suportado"));
-
-		return ResponseEntity.ok(parserResolved.parse(fileBytes));
+	@RequestMapping(value = "/api/parse", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Void> parse (@RequestParam("file") @NonNull MultipartFile multipartFile) throws ExecutionControl.NotImplementedException, IOException {
+		parserService.parse(multipartFile);
+		return ResponseEntity.ok().build();
 	}
 
 }

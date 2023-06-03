@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 public enum TipoArquivo {
 
-	OFX(1L, "OFX", "application/x-ofx"),
-	CSV(2L, "CSV", "text/csv");
+	OFX(1L, "OFX", "ofx"),
+	CSV(2L, "CSV", "csv");
 
 	TipoArquivo (Long codigo, String descricao, String identificador) {
 		this.codigo = codigo;

@@ -18,6 +18,9 @@ public class TransactionDetailDTO {
 		this.data = data;
 	}
 
+	public TransactionDetailDTO () {
+	}
+
 	public String getDescricao () {
 		return descricao;
 	}

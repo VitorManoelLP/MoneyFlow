@@ -3,6 +3,7 @@ package com.moneyflow.moneyflow.util;
 import com.client.common.enums.TipoRendimento;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.Usuario;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
@@ -46,7 +47,9 @@ public final class Fixtures {
 
 	@SneakyThrows
 	public static String createMockJson(Object obj) {
-		ObjectWriter writer = new ObjectMapper().writer();
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModules(new JavaTimeModule());
+		ObjectWriter writer = objectMapper.writer();
 		return writer.writeValueAsString(obj);
 	}
 

@@ -7,24 +7,22 @@ import { Environment } from 'enviroments';
 @Injectable()
 export class RendimentosService {
 
-  private url: string = Environment.MONEY_FLOW_API;
-
   constructor(private httpClient: HttpClient) { }
 
   public getRendimentosByIdUsuarioRendimento(idUsuarioRendimento: number): Observable<DetailOutlay[]> {
-    return this.httpClient.get<DetailOutlay[]>(`${this.url}/rendimentos/usuario-rendimento/${idUsuarioRendimento}`);
+    return this.httpClient.get<DetailOutlay[]>(`${Environment.MONEY_FLOW_API}/rendimentos/usuario-rendimento/${idUsuarioRendimento}`);
   }
 
   public salvar(outlay: DetailOutlayGroup): Observable<DetailOutlayGroup> {
-    return this.httpClient.post<DetailOutlayGroup>(`${this.url}/rendimentos`, outlay);
+    return this.httpClient.post<DetailOutlayGroup>(`${Environment.MONEY_FLOW_API}/rendimentos`, outlay);
   }
 
   public delete(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.url}/rendimentos/${id}`);
+    return this.httpClient.delete(`${Environment.MONEY_FLOW_API}/rendimentos/${id}`);
   }
 
   public salvarOfx(FormData: FormData): Observable<any> {
-    return this.httpClient.post<any>(`${this.url}/rendimentos/ofx`, FormData);
+    return this.httpClient.post<any>(`${Environment.PARSE_API}/parse`, FormData);
   }
 
 }

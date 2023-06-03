@@ -1,5 +1,9 @@
 package com.moneyflow.moneyflow.resource;
 
+import com.client.common.dto.TransactionDTO;
+import com.client.common.dto.TransactionDetailDTO;
+import com.client.common.enums.TipoRendimento;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.repository.RendimentoRepository;
 import com.moneyflow.moneyflow.service.UsuarioRendimentoService;
@@ -16,6 +20,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasItem;
@@ -88,11 +94,19 @@ public class RendimentosResourceTest {
 	}
 
 	@Test
-	public void salvarOfx() throws Exception {
+	public void salvarExtrato() throws Exception {
 
-		mockMvc.perform(multipart("/api/rendimentos/ofx")
-				.file("file", "teste".getBytes())
-				.param("usuarioRendimentoId", "1"))
+		TransactionDetailDTO detail = TransactionDetailDTO.of("Pagamento", BigDecimal.TEN, LocalDate.of(2023, 5, 1));
+
+		TransactionDTO transaction = TransactionDTO.of("Teste", 1L, TipoRendimento.RECEITA, new ArrayList<>(List.of(detail)));
+
+		List<TransactionDTO> transactions = new ArrayList<>(List.of(transaction));
+
+		String mockJson = Fixtures.createMockJson(transactions);
+
+		mockMvc.perform(post("/api/rendimentos/salvar-extrato")
+				.content(mockJson)
+						.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated());
 
 		verify(usuarioRendimentoService).salvarExtrato(any());

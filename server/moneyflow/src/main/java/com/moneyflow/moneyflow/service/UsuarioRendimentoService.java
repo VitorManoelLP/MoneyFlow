@@ -3,7 +3,6 @@ package com.moneyflow.moneyflow.service;
 import com.client.common.dto.RequestParseDTO;
 import com.client.common.dto.TransactionDTO;
 import com.client.common.enums.TipoArquivo;
-import com.moneyflow.moneyflow.client.ParseFeignClient;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.Usuario;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
@@ -26,8 +25,6 @@ public class UsuarioRendimentoService {
 
 	private final UsuarioRepository usuarioRepository;
 
-	private final ParseFeignClient ofxParseFeignClient;
-
 	public UsuarioRendimento salvar (UsuarioRendimento usuarioRendimento) {
 		usuarioRendimento.getRendimentos().forEach(rendimento -> rendimento.assign(usuarioRendimento));
 		Usuario usuario = usuarioRepository.findById(1L).orElseThrow();
@@ -35,15 +32,9 @@ public class UsuarioRendimentoService {
 		return usuarioRendimentoRepository.save(usuarioRendimento);
 	}
 
-	public void salvarExtrato (MultipartFile multipartFile) throws IOException {
+	public void salvarExtrato (List<TransactionDTO> transactions) {
 
 		Usuario usuario = usuarioRepository.findById(1L).orElseThrow();
-
-		String encode = Base64.getEncoder().encodeToString(multipartFile.getInputStream().readAllBytes());
-
-		RequestParseDTO requestParseDTO = new RequestParseDTO(encode, TipoArquivo.getByIdentificador(multipartFile.getContentType()));
-
-		List<TransactionDTO> transactions = ofxParseFeignClient.parse(requestParseDTO);
 
 		List<UsuarioRendimento> usuarioRendimentos = transactions.stream()
 				.map(transaction -> convertToEntity(usuario, transaction))

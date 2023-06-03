@@ -1,5 +1,6 @@
 package com.moneyflow.moneyflow.resource;
 
+import com.client.common.dto.TransactionDTO;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.dto.RendimentoDTO;
@@ -49,9 +50,9 @@ public class RendimentosResource {
 		return ResponseEntity.accepted().build();
 	}
 
-	@PostMapping("/ofx")
-	public ResponseEntity<Void> salvarRendimentosOfx(@RequestParam("file") @NonNull MultipartFile multipartFile) throws IOException {
-		usuarioRendimentoService.salvarExtrato(multipartFile);
+	@PostMapping("/salvar-extrato")
+	public ResponseEntity<Void> salvarRendimentosOfx(@RequestBody List<TransactionDTO> transactions) {
+		usuarioRendimentoService.salvarExtrato(transactions);
 		return ResponseEntity.created(ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.build()

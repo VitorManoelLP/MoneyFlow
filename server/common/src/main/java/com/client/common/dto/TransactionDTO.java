@@ -19,6 +19,9 @@ public class TransactionDTO {
 		this.details = details;
 	}
 
+	public TransactionDTO () {
+	}
+
 	public String getDescricao () {
 		return descricao;
 	}
