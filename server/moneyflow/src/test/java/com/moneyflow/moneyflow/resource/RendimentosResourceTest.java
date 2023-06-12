@@ -3,7 +3,6 @@ package com.moneyflow.moneyflow.resource;
 import com.client.common.dto.TransactionDTO;
 import com.client.common.dto.TransactionDetailDTO;
 import com.client.common.enums.TipoRendimento;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.repository.RendimentoRepository;
 import com.moneyflow.moneyflow.service.UsuarioRendimentoService;
@@ -49,7 +48,7 @@ public class RendimentosResourceTest {
 
 	@Before
 	public void setup() {
-		rendimentosResource = new RendimentosResource(rendimentoRepository, usuarioRendimentoService);
+		rendimentosResource = new RendimentosResource(usuarioRendimentoService, rendimentoRepository, usuarioRendimentoService);
 		mockMvc = MockMvcBuilders.standaloneSetup(rendimentosResource).build();
 	}
 

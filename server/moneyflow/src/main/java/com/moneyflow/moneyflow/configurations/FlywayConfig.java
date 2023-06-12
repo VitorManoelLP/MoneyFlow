@@ -20,7 +20,7 @@ public class FlywayConfig {
 
 		Flyway flyway = Flyway.configure()
 				.dataSource(dataSource)
-				.locations("classpath:db/migration/commons", "classpath:db/migration/inserts", "classpath:db/migration/trigger")
+				.locations("classpath:db/migration/commons", "classpath:db/migration/inserts")
 				.baselineDescription("Initial version")
 				.load();
 

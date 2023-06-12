@@ -8,6 +8,7 @@ import com.moneyflow.moneyflow.domain.Usuario;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.repository.UsuarioRendimentoRepository;
 import com.moneyflow.moneyflow.repository.UsuarioRepository;
+import com.moneyflow.moneyflow.service.abstracts.CrudService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,12 +19,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
-public class UsuarioRendimentoService {
+public class UsuarioRendimentoService extends CrudService<UsuarioRendimento, Long> {
 
 	private final UsuarioRendimentoRepository usuarioRendimentoRepository;
 
 	private final UsuarioRepository usuarioRepository;
+
+	public UsuarioRendimentoService (final UsuarioRendimentoRepository usuarioRendimentoRepository, final UsuarioRepository usuarioRepository) {
+		super(usuarioRendimentoRepository);
+		this.usuarioRendimentoRepository = usuarioRendimentoRepository;
+		this.usuarioRepository = usuarioRepository;
+	}
 
 	public UsuarioRendimento salvar (UsuarioRendimento usuarioRendimento) {
 		usuarioRendimento.getRendimentos().forEach(rendimento -> rendimento.assign(usuarioRendimento));

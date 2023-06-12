@@ -23,7 +23,7 @@ public class S3Config {
 	@Bean
 	public S3Client s3Client() {
 		return S3Client.builder()
-				.region(Region.of(region))
+				.region(Region.of("sa-east-1"))
 				.credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey)))
 				.build();
 	}

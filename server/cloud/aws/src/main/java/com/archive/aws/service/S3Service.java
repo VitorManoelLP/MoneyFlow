@@ -2,11 +2,12 @@ package com.archive.aws.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
+import java.io.File;
 import java.nio.file.Paths;
 
 @Service
@@ -14,25 +15,12 @@ import java.nio.file.Paths;
 public class S3Service {
 
 	private final S3Client s3Client;
-
-	public void createBucket(String bucketName) {
-		s3Client.createBucket(b -> b.bucket(bucketName));
-	}
-
-	public void deleteBucket(String bucketName) {
-		s3Client.deleteBucket(b -> b.bucket(bucketName));
-	}
-
 	public void putObject(String bucketName, String key, String value) {
 		s3Client.putObject(b -> b.bucket(bucketName).key(key), Paths.get(value));
 	}
 
-	public void deleteObject(String bucketName, String key) {
-		s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
-	}
-
-	public ResponseInputStream<GetObjectResponse> getObject(String bucketName, String key) {
-		return s3Client.getObject(b -> b.bucket(bucketName).key(key));
+	public PutObjectResponse putFile(String bucketName, String key, File file) {
+		return s3Client.putObject(b -> b.bucket(bucketName).key(key), RequestBody.fromFile(file));
 	}
 
 	public ListObjectsResponse listObjects(String bucketName) {

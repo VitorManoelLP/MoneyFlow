@@ -40,7 +40,6 @@ public final class Fixtures {
 		return Usuario.newInstance()
 				.id(id)
 				.nome("Teste")
-				.password("123456")
 				.email("test@gmail.com")
 				.create();
 	}

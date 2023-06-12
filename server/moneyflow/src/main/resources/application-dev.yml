@@ -1,15 +1,16 @@
 spring:
   flyway:
-    locations: classpath:db/migration/commons, classpath:db/migration/inserts, classpath:db/migration/trigger
+    locations: classpath:db/migration/commons, classpath:db/migration/inserts
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    username: moneyflow
+    password: money
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: none
       show-sql: true
+      default_schema: moneyflow
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
@@ -35,4 +36,4 @@ eureka:
     preferIpAddress: true
 
 server:
-  port: 8082
+  port: 0

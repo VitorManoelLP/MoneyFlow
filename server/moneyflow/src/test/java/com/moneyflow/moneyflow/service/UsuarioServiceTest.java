@@ -3,6 +3,7 @@ package com.moneyflow.moneyflow.service;
 import com.client.common.enums.TipoRendimento;
 import com.moneyflow.moneyflow.dto.InitialInformationsDTO;
 import com.moneyflow.moneyflow.dto.RendimentoTotalDTO;
+import com.moneyflow.moneyflow.repository.RendimentoRepository;
 import com.moneyflow.moneyflow.repository.UsuarioRendimentoRepository;
 import com.moneyflow.moneyflow.repository.UsuarioRepository;
 import com.moneyflow.moneyflow.util.IntegrationTesting;
@@ -21,7 +22,7 @@ import java.math.BigDecimal;
 @RunWith(SpringRunner.class)
 @IntegrationTesting
 @Sql(statements = {
-		"INSERT INTO usuario values(1, 'Fulano', 'Fulano@gmail.com', '1234', NULL, NULL, NULL, NULL);",
+		"INSERT INTO usuario values(1, 'Fulano', 'Fulano@gmail.com', null);",
 
 		"INSERT INTO tipo_rendimento values(2, 'Despesas');",
 		"INSERT INTO tipo_rendimento values(1, 'Receitas');",
@@ -55,11 +56,14 @@ public class UsuarioServiceTest {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	private RendimentoRepository rendimentoRepository;
+
 	private UsuarioService usuarioService;
 
 	@Before
 	public void setup() {
-		RendimentoService rendimentoService = new RendimentoService();
+		RendimentoService rendimentoService = new RendimentoService(rendimentoRepository);
 		usuarioService = new UsuarioService(usuarioRendimentoRepository, usuarioRepository, rendimentoService);
 	}
 

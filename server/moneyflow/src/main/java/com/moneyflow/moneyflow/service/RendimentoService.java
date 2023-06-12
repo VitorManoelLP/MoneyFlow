@@ -4,6 +4,11 @@ import com.client.common.enums.TipoRendimento;
 import com.moneyflow.moneyflow.domain.Rendimento;
 import com.moneyflow.moneyflow.domain.UsuarioRendimento;
 import com.moneyflow.moneyflow.dto.RendimentoTotalDTO;
+import com.moneyflow.moneyflow.repository.RendimentoRepository;
+import com.moneyflow.moneyflow.repository.UsuarioRendimentoRepository;
+import com.moneyflow.moneyflow.repository.UsuarioRepository;
+import com.moneyflow.moneyflow.repository.abstracts.CrudRepository;
+import com.moneyflow.moneyflow.service.abstracts.CrudService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,7 +19,14 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class RendimentoService {
+public class RendimentoService extends CrudService<Rendimento, Long> {
+
+	private final RendimentoRepository rendimentoRepository;
+
+	public RendimentoService (final RendimentoRepository rendimentoRepository) {
+		super(rendimentoRepository);
+		this.rendimentoRepository = rendimentoRepository;
+	}
 
 	public List<RendimentoTotalDTO> processarRendimentoByUser(List<UsuarioRendimento> rendimentosByUser) {
 

@@ -14,7 +14,7 @@ import java.util.List;
 @IntegrationTesting
 @RunWith(SpringRunner.class)
 @Sql(statements = {
-		"INSERT INTO usuario values(1, 'Fulano', 'Fulano@gmail.com', '1234', NULL, NULL, NULL, NULL);",
+		"INSERT INTO usuario values(1, 'Fulano', 'Fulano@gmail.com', null);",
 
 		"INSERT INTO tipo_rendimento values(2, 'Despesas');",
 
